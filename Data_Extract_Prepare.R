@@ -31,14 +31,14 @@ statement.cleaned <- statement %>%
 # (DR can also be configured in regex, if it is contained in statement)
 statement.cleaned %>% 
   mutate(Date = as.Date(paste0("20",substr(V1, 5, 6),"-",substr(V1, 3, 4),"-", substr(V1, 1, 2))),
-         Description = trimws(gsub("\\d*,*\\d+\\.\\d{2}[CR]*", "", V2)),
-         Amt = trimws(str_extract(V2, "\\d*,*\\d+\\.\\d{2}[CR]*")),
+         Description = trimws(gsub("[\\d,]*\\.\\d{2}[CR]*", "", V2)),
+         Amt = trimws(str_extract(V2, "[\\d,]*\\.\\d{2}[CR]*")),
          Credit = trimws(gsub("[A-Z,]", "", str_extract(Amt, ".*CR"))),
          Debit = trimws(gsub("[,]", "",if_else(is.na(Credit), Amt, NULL)))) %>% 
-  type_convert() %>% 
+  type_convert() %>%                                    # auto data type conversion based on field values
   mutate(Credit = replace_na(Credit, 0),
          Debit = replace_na(Debit, 0)) %>% 
   select(-V1, -V2) %>%
   write_csv("All_Transactions.csv",
             append = FALSE                              # append = FALSE for 1st File, TRUE for 2nd file onward
-            ) 
+  ) 
