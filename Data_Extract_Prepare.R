@@ -1,6 +1,6 @@
 # Loading Libraries
-library(pdftools) # for parsing & cleaning pdfs
-library(tidyverse) # for tidying things
+library(pdftools)   # for parsing & cleaning pdfs
+library(tidyverse)  # for tidying things
 
 
 # Reading pdf files
