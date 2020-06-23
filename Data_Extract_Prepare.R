@@ -4,6 +4,8 @@ library(tidyverse)  # for tidying things
 
 
 # Reading pdf files
+# make sure your working directory has PDF subfolders
+# Or else path can be modified to target particluar file
 current.pdf <- pdf_text("./PDFs/Sample_apr_2020.pdf") %>% 
   read_lines()
 
