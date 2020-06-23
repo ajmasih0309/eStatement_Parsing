@@ -19,7 +19,7 @@ end.statement <- grep("NEW BALANCE", current.pdf) - 1
 # Selecting Statement Part
 statement <- current.pdf[start.statement:end.statement]
 
-# Preparing Data into tibble
+# Cleaning Data & converting to tibble
 statement.cleaned <- statement %>% 
   str_squish() %>%                                      # Removing extra white spaces
   str_split(" ", n = 2) %>%                             # n columns to be split at first " "
@@ -27,7 +27,7 @@ statement.cleaned <- statement %>%
   matrix(ncol = 2, byrow = TRUE) %>%                    # ncol should match with n from str_split operation
   as_tibble()                                           # Column auto naming, V1 will be first column
 
-# Cleaning Up data & saving in csv file
+# Preparing data & saving in csv file
 # In Sample file date is in ddmmyy format
 # The amt part is matched for amt with CR and removed for new column \n
 # (DR can also be configured in regex, if it is contained in statement)
